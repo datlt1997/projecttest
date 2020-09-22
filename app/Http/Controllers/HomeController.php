@@ -25,21 +25,4 @@ class HomeController extends Controller
     {
         return view('login.loginform');
     }
-    public function loginWeb(Request $request){
-        $data=$request->only('email','password');
-        dd($data);
-        if(Auth::attempt($data)){
-            if(Auth::user()->role==1){
-
-            }else if(Auth::user()->role==2){
-
-            }else if(Auth::user()->role==3){
-
-            }
-
-        }
-        else{
-
-        }
-    }
 }

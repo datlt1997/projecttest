@@ -39,20 +39,35 @@
             </div>
           </div>
         </div>
+        <div class="col-12">
+          @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
+        </div>
         <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="Password" name="password">
           <div class="input-group-append">
-            <div class="input-group-text">
-              
-
+            <div class="input-group-text">           
             </div>
           </div>
+          
+        </div>
+        <div class="col-12">
+          @error('password')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
         </div>
         <div class="row">
           
           <!-- /.col -->
           <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            @php
+              $mess= '';
+            @endphp
+            @if($mess)
+              <div class="alert alert-danger">{{ $mess }}</div>
+            @enderror
           </div>
           <!-- /.col -->
         </div>

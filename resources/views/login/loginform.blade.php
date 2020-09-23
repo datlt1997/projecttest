@@ -31,6 +31,9 @@
 
       <form action="{{route('user-login')}}" method="post">
         @csrf
+        @if(session('mess'))
+              <div style="color:red; border: 1px solid gray; border-radius: 5px; text-align: center; ">{{ session('mess') }}</div>
+            @endif
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email" name="email">
           <div class="input-group-append">
@@ -41,7 +44,7 @@
         </div>
         <div class="col-12">
           @error('email')
-            <div class="alert alert-danger">{{ $message }}</div>
+            <div style="color:red; border: 1px solid gray; border-radius: 5px; text-align: center; ">{{ $message }}</div>
           @enderror
         </div>
         <div class="input-group mb-3">
@@ -54,7 +57,7 @@
         </div>
         <div class="col-12">
           @error('password')
-            <div class="alert alert-danger">{{ $message }}</div>
+            <div style="color:red; border: 1px solid gray; border-radius: 5px; text-align: center; ">{{ $message }}</div>
           @enderror
         </div>
         <div class="row">
@@ -62,12 +65,6 @@
           <!-- /.col -->
           <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-            @php
-              $mess= '';
-            @endphp
-            @if($mess)
-              <div class="alert alert-danger">{{ $mess }}</div>
-            @enderror
           </div>
           <!-- /.col -->
         </div>

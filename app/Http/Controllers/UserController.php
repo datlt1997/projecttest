@@ -10,14 +10,13 @@ class UserController extends Controller
     public function loginWeb( LoginFormRequest $request){
         $data = $request -> only ('email', 'password');
         if (Auth::attempt($data)){
-            if (Auth::user() -> role == 1){
+            if (Auth::user() -> role == 1) {
             	return view('admin.dashboard');
-            } elseif (Auth::user() -> role == 2){
+            } elseif (Auth::user() -> role == 2) {
             	return view('admin.dashboard');
-            } elseif (Auth::user() -> role == 3){
+            } elseif (Auth::user() -> role == 3) {
             	return view('user.home');
             }
-
         } else {
         	return view('login.loginform');
         }

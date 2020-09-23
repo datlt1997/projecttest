@@ -36,7 +36,7 @@
         @if(session('mess'))
               <div style="color:red; margin-bottom: 15px; text-align: center;">{{ session('mess') }}</div>
             @endif
-        <div class="input-group"  
+        <div class="input-group fix-border"  
           @error('email')
             style="border: 1px solid red; color:red;"
           @enderror>
@@ -48,7 +48,7 @@
           @enderror
         </div>
         <br>
-        <div class="input-group"
+        <div class="input-group fix-border"
           @error('password')
             style="border: 1px solid red"
           @enderror>

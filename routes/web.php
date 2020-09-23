@@ -19,6 +19,6 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
-    return view('login.loginform');
+    return view('login.login_form');
 });
 Route::post('loginUser','UserController@loginWeb')->name('user-login');

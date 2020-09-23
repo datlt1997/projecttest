@@ -1,4 +1,4 @@
-.input-group{
-	border: 1px solid gray;
+.fix-border{
+	border-right: 1px solid #0000003d;
 	border-radius: 5px;
 }

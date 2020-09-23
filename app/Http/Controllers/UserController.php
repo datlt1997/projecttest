@@ -7,18 +7,24 @@ use App\Http\Requests\LoginFormRequest;
 
 class UserController extends Controller
 {
-    public function loginWeb( LoginFormRequest $request){
-        $data = $request -> only ('email', 'password');
-        if (Auth::attempt($data)){
-            if (Auth::user() -> role == 1) {
+
+    /**
+     * This function is login website
+     * LoginFormRequest $request
+     */
+    public function loginWeb(LoginFormRequest $request)
+    {
+        $data = $request->only('email', 'password');
+        if (Auth::attempt($data)) {
+            if (Auth::user()->role == 1) {
             	return view('admin.dashboard');
-            } elseif (Auth::user() -> role == 2) {
+            } elseif (Auth::user()->role == 2) {
             	return view('admin.dashboard');
-            } elseif (Auth::user() -> role == 3) {
+            } else {
             	return view('user.home');
             }
         } else {
-        	return view('login.loginform');
+        	return redirect()->back()->with('mess', 'Email hoặc mật khẩu của bạn sai');
         }
     }
 }

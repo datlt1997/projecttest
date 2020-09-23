@@ -28,7 +28,13 @@ class LoginFormRequest extends FormRequest
             'password' => 'required|min:6',
         ];
     }
-    public function messages(){
+
+    /**
+     * 
+     * @return message error
+     */
+    public function messages()
+    {
         return [
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không hợp lệ',

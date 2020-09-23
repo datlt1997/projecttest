@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{{asset('css/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+  {{-- main css --}}
+  <link rel="stylesheet" href="{{asset('css/main.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -32,19 +34,13 @@
       <form action="{{route('user-login')}}" method="post">
         @csrf
         @if(session('mess'))
-              <div style="color:red;">{{ session('mess') }}</div>
+              <div style="color:red; margin-bottom: 15px; text-align: center;">{{ session('mess') }}</div>
             @endif
         <div class="input-group"  
           @error('email')
             style="border: 1px solid red; color:red;"
           @enderror>
           <input type="text" class="form-control" placeholder="Nhập Email" name="email" value="{{old('email')}}">
-         
-          <div class="input-group-append">
-            <div class="input-group-text">
-              
-            </div>
-          </div>
         </div>
         <div class="col-12">
           @error('email')
@@ -56,12 +52,7 @@
           @error('password')
             style="border: 1px solid red"
           @enderror>
-          <input type="password" class="form-control" placeholder="Nhập Mật Khẩu Từ 6 ký tự" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">           
-            </div>
-          </div>
-          
+          <input type="password" class="form-control" placeholder="Nhập Mật Khẩu Từ 6 ký tự" name="password">         
         </div>
         <div class="col-12">
           @error('password')

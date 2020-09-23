@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Hệ Thống Tranining | Login</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,20 +22,24 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="{{url('/')}}"><b>HỆ THỐNG TRAINNING</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Login Form</p>
+      <p class="login-box-msg">LOGIN</p>
 
       <form action="{{route('user-login')}}" method="post">
         @csrf
         @if(session('mess'))
-              <div style="color:red; border: 1px solid gray; border-radius: 5px; text-align: center; ">{{ session('mess') }}</div>
+              <div style="color:red;">{{ session('mess') }}</div>
             @endif
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
+        <div class="input-group mb-3"  
+          @error('email')
+            style="border: 1px solid red; color:red;"
+          @enderror>
+          <input type="text" class="form-control" placeholder="Nhập Email" name="email" value="{{old('email')}}">
+         
           <div class="input-group-append">
             <div class="input-group-text">
               
@@ -44,11 +48,14 @@
         </div>
         <div class="col-12">
           @error('email')
-            <div style="color:red; border: 1px solid gray; border-radius: 5px; text-align: center; ">{{ $message }}</div>
+            <div style="color:red;">{{ $message }}</div>
           @enderror
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
+        <div class="input-group mb-3"
+          @error('password')
+            style="border: 1px solid red"
+          @enderror>
+          <input type="password" class="form-control" placeholder="Nhập Mật Khẩu Từ 6 ký tự" name="password">
           <div class="input-group-append">
             <div class="input-group-text">           
             </div>
@@ -57,7 +64,7 @@
         </div>
         <div class="col-12">
           @error('password')
-            <div style="color:red; border: 1px solid gray; border-radius: 5px; text-align: center; ">{{ $message }}</div>
+            <div style="color:red; ">{{ $message }}</div>
           @enderror
         </div>
         <div class="row">

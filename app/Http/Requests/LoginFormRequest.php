@@ -31,7 +31,7 @@ class LoginFormRequest extends FormRequest
 
     /**
      * 
-     * @return message error
+     * @return array message error
      */
     public function messages()
     {

@@ -8,14 +8,14 @@ use App\Http\Requests\LoginFormRequest;
 class UserController extends Controller
 {
 
-    /*
-    * This function is login website
-    * LoginFormRequest $request
+    /**
+     * This function is login website
+     * LoginFormRequest $request
      */
     public function loginWeb(LoginFormRequest $request)
     {
         $data = $request->only('email', 'password');
-        if (Auth::attempt($data)){
+        if (Auth::attempt($data)) {
             if (Auth::user()->role == 1) {
             	return view('admin.dashboard');
             } elseif (Auth::user()->role == 2) {

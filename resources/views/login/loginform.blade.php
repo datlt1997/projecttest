@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Hệ Thống Tranining | Login</title>
+  <title>Hệ Thống Training | Login</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,7 +22,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{url('/')}}"><b>HỆ THỐNG TRAINNING</b></a>
+    <a href="{{url('/')}}"><b>HỆ THỐNG TRAINING</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -34,7 +34,7 @@
         @if(session('mess'))
               <div style="color:red;">{{ session('mess') }}</div>
             @endif
-        <div class="input-group mb-3"  
+        <div class="input-group"  
           @error('email')
             style="border: 1px solid red; color:red;"
           @enderror>
@@ -51,7 +51,8 @@
             <div style="color:red;">{{ $message }}</div>
           @enderror
         </div>
-        <div class="input-group mb-3"
+        <br>
+        <div class="input-group"
           @error('password')
             style="border: 1px solid red"
           @enderror>
@@ -67,11 +68,12 @@
             <div style="color:red; ">{{ $message }}</div>
           @enderror
         </div>
+        <br>
         <div class="row">
           
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
           </div>
           <!-- /.col -->
         </div>

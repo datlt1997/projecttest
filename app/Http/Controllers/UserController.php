@@ -18,7 +18,7 @@ class UserController extends Controller
             	return view('user.home');
             }
         } else {
-        	return view('login.loginform');
+        	return redirect()->back()->with('mess','Email hoặc mật khẩu của bạn sai');
         }
     }
 }

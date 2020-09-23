@@ -10,7 +10,7 @@ class UserController extends Controller
 
     /**
      * This function is login website
-     * LoginFormRequest $request
+     * @param LoginFormRequest $request
      */
     public function loginWeb(LoginFormRequest $request)
     {

@@ -29,3 +29,13 @@ td,th{
 	width: 70px
 	height:30px;
 }
+.fix-input,.fix-button {
+    margin-top: 20px;
+}
+.fix-form {
+    position: absolute !important;
+    left: 50%;
+    margin-left: -180px;
+    top: 50%;
+    margin-top: -180px;
+}

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Add User</title>
+  <title>Edit User</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{asset("css/adminlte.min.css")}}">
   {{-- css input form --}}
   <link rel="stylesheet" href="{{asset("assets/css/fix.form.user.css")}}">
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -25,12 +26,13 @@
 <div class="register-box">
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg">Register a new membership</p>
+      <p class="login-box-msg">Edit a membership</p>
 
-      <form action="{{route('save-user')}}" method="post">
+      <form action="{{route('update-user',$editUser->id)}}" method="post">
         @csrf
+        @method('put')
         <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="Vui lòng nhập tên" name="name" value="{{old('name')}}">
+          <input type="text" class="form-control" placeholder="Vui lòng nhập tên" name="name" value="{{$editUser->name}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -41,7 +43,7 @@
             <div style="color:red;">{{ $message }}</div>
           @enderror
         <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="vui lòng nhập Email" name="email" value="{{old('email')}}">
+          <input type="text" class="form-control" placeholder="vui lòng nhập Email" name="email" value="{{$editUser->email}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -52,18 +54,7 @@
             <div style="color:red;">{{ $message }}</div>
           @enderror
         <div class="input-group fix-input">
-          <input type="password" class="form-control" placeholder=" Vui lòng nhập password" name="password" >
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-         @error('password')
-            <div style="color:red;">{{ $message }}</div>
-          @enderror
-        <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ" name="address" value="{{old('address')}}">
+          <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ" name="address" value="{{$editUser->address}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-address-card"></span>
@@ -75,7 +66,7 @@
           @enderror
         @if(Auth::user()->role == 1)
         <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="Quyền Truy Cập 2:Admin, 3:User" name="role">
+          <input type="text" class="form-control" placeholder="Quyền truy cập 2: Admin 3: User" name="role" value="{{$editUser->role}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -86,10 +77,21 @@
             <div style="color:red;">{{ $message }}</div>
           @enderror
         @endif
-        <div class="row fix-button">
+        <div class="input-group fix-input">
+          <input type="text" class="form-control" placeholder="1:Active 0: Inactive" name="active" value="{{$editUser->active}}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fab fa-creative-commons-by"></span>
+            </div>
+          </div>
+        </div>
+         @error('active')
+            <div style="color:red;">{{ $message }}</div>
+          @enderror
+        <div class="row">
           <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>
+          <div class="col-12 fix-button">
+            <button type="submit" class="btn btn-primary btn-block">Sửa thông tin</button>
           </div>
           <!-- /.col -->
         </div>

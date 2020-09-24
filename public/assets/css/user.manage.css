@@ -1,3 +1,31 @@
 td,th{
 	text-align: center;
 }
+.edit-form{
+	margin:0 auto;
+}
+#box-select-user{
+	width: 200px;
+    margin-left: 15%;
+    height: 31px;
+    background: #f2f4f6;
+    border-radius: 4px;
+    color: #7f7f7f;
+    font-size: 14px;
+    border: 1px solid #f2f4f6;
+}
+.edit-button{
+	width: 100px;
+    border: 1px solid #f2f4f6;
+    border-radius: 5px;
+    height: 32px;
+    margin-left: 20px;
+}
+.edit-button:hover{
+	color: #3b64a0;
+    background: #bff3f3;
+}
+.button-option{
+	width: 70px
+	height:30px;
+}

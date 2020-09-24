@@ -18,14 +18,22 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function () {
-    return view('login.login_form');
-});
-Route::post('loginUser', 'UserController@loginWeb')->name('user-login');
-Route::get('showUser', 'UserController@showUser')->name('show-user');
-Route::get('addUser', 'UserController@addUser')->name('add-user');
-Route::post('userUser', 'UserController@saveUser')->name('save-user');
-Route::get('editUser/[id]', 'UserController@editUser')->name('edit-user');
-Route::put('updateUser/[id]', 'UserController@updateUser')->name('update-user');
-Route::delete('deleteUser/[id]', 'UserController@deleteUser')->name('delete-user');
 
+Route::prefix('admin/')->group(function () {
+	Route::get('/','UserController@loginFormAdmin')->name('login-admin');
+	Route::post('loginUser', 'UserController@loginUser')->name('user-login');
+
+	Route::prefix('user/')->group(function () {
+		Route::get('list', 'UserController@showUser')->name('show-user');
+		Route::get('register', 'UserController@addUser')->name('add-user');
+		Route::post('add', 'UserController@saveUser')->name('save-user');
+		Route::get('{id}/edit', 'UserController@editUser')->name('edit-user');
+		Route::put('{id}/update', 'UserController@updateUser')->name('update-user');
+		Route::delete('{id}/delete', 'UserController@deleteUser')->name('delete-user');
+		Route::post('search','UserController@searchUser')->name('search-user');
+	});
+    
+});
+Route::prefix('user')->group(function () {
+	//
+});

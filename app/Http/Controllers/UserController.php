@@ -7,15 +7,23 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\LoginFormRequest;
 use App\Http\Requests\Admin\AddUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Services\Admin\UserService;
 use Auth;
-use App\Models\User;
 
 class UserController extends Controller
 {
+    private $userServices;
 
     /**
-     * Show form login
-     * 
+     * Constructor
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    /**
+     * Show form login 
      */
     public function loginFormAdmin()
     {
@@ -53,7 +61,7 @@ class UserController extends Controller
      */
     public function showUser()
     {
-        $list_user = User::paginate(5);
+        $list_user = $this->userService->getAllUser();
         return view('admin.user.list_user', compact('list_user'));
     }
 
@@ -74,70 +82,65 @@ class UserController extends Controller
         $data = $request->only('email', 'name', 'password', 'address', 'role');
         $data['password'] = Hash::make($data['password']);
         $data['active'] = config('constant.active');
-        // dd($data['role'] == config('constant.admin'));
         if(( empty($data['role'] )) || ($data['role'] != config('constant.admin'))) {
             $data['role'] = config('constant.user');
         }
-        User::create($data);
+        $this->userService->createUser($data);      
         return redirect()->route('show-user');
     }
 
     /**
      * Edit User
-     * @param $id
+     * @param int $id
      */
     public function editUser($id)
     {
-        $editUser =User::find($id);
+        $editUser = $this->userService->editUser($id);
         return view('admin.user.edit_user', compact('editUser'));
     }
 
     /**
      * Update User
-     * @param UpdateUserRequest $request, $id
-     * 
+     * @param UpdateUserRequest $request
+     * @param int $id
      */
     public function updateUser(UpdateUserRequest $request, $id)
     {
         $data = $request->only('email', 'name', 'password', 'address', 'role', 'active');
-        User::find($id)->update($data);
+        $this->userService->updateUser($id, $data);
         return redirect()->route('show-user');
     }
 
     /**
      * Delete user
-     * @param $id
-     * 
+     * @param int $id
      */
     public function deleteUser($id)
     {
-        User::destroy($id);
+        $this->userService->deleteUser($id);
         return redirect()->route('show-user');
     }
 
     /**
      * Search user
      * @param Request $request
-     * 
      */
     public function searchUser(Request $request)
     {
         $keyword = $request->keyword;
         $selectUser = $request->selectUser;
-        if(isset($keyword)) {
-            $list_user = User::where('name', 'like', '%'.$keyword.'%')->orWhere('email', 'like', '%'.$keyword.'%')->orWhere('address', 'like', '%'.$keyword.'%')->paginate(5);
-        } elseif ($selectUser != config('constant.selectadd')) {
-            $list_user = User::where('active', 'like', $selectUser)->paginate(5);
-        } elseif ((isset($keyword))&&($selectUser != config('constant.selectadd'))) {
-            $list_user = User::where('name', 'like', '%'.$keyword.'%')->orWhere('email', 'like', '%'.$keyword.'%')->orWhere('address', 'like', '%'.$keyword.'%')->orWhere('active', 'like', $selectUser)->paginate(5);
-        }
-        else{
-            $list_user = User::paginate(5);
-        }
-        return view('admin.user.list_user',compact('list_user', 'keyword', 'selectUser'));
+        // dd($selectUser != config('constant.selectall'));
+        if ((isset($keyword)) && ($selectUser != config('constant.selectall'))) {
+            $list_user = $this->userService->searchByAll($keyword, $selectUser);
+        } elseif (isset($keyword)) {
+            $list_user = $this->userService->searchByKey($keyword);
 
-        // $resultUser = User::where('name','like','%'.$keyword.'%')->orWhere('email','like','%'.$keyword.'%')->orWhere('address','like','%'.$keyword.'%')->get();
-        // $resultUser = User::where('active', 'like', $selectUser)->get();
-        // dd($resultUser);
+        } elseif ($selectUser != config('constant.selectall')) {
+            $list_user = $this->userService->searchByActive($selectUser);
+
+        } else {
+            $list_user = $this->userService->getAllUser();
+        }
+        return view('admin.user.list_user', compact('list_user', 'keyword', 'selectUser'));
     }
 }

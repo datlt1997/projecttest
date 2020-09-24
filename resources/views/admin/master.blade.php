@@ -9,15 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset("css/css/all.min.css")}}">
+  <link rel="stylesheet" href="{{asset('css/css/all.min.css')}}">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{asset("css/ionicons.min.css")}}">
+  <link rel="stylesheet" href="{{asset('css/ionicons.min.css')}}">
   <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset("css/dataTables.bootstrap4.min.css")}}">
-  <link rel="stylesheet" href="{{asset("css/responsive.bootstrap4.min.css")}}">
+  <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/responsive.bootstrap4.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset("css/adminlte.min.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/css/user.manage.css")}}">
+  <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/user.manage.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -47,7 +47,7 @@
       </div>
       <div class="input-group input-group-sm">
         <select name="selectUser" id="box-select-user">
-          <option value="all">Tất Cả</option>
+          <option value="{{config('constant.selectall')}}">Tất Cả</option>
           <option value="{{config('constant.active')}}"
           @if(isset($selectUser))
             @if($selectUser == config('constant.active'))

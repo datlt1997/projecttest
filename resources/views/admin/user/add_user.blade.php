@@ -85,6 +85,8 @@
          @error('role')
             <div style="color:red;">{{ $message }}</div>
           @enderror
+        @else
+          <input type="hidden" name="role" value="{{config('constant.user')}}">
         @endif
         <div class="row fix-button">
           <!-- /.col -->

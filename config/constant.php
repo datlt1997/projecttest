@@ -5,6 +5,6 @@ return [
 	'user' => '3',
 	'active' => '1',
 	'inactive' => '0',
-	'selectall' => 'all'
+	'selectall' => 'all',
 ]
 ?>

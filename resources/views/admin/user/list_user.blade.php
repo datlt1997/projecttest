@@ -34,7 +34,7 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Số Thứ Tự</th>
+                  <th>ID</th>
                   <th>Tên</th>
                   <th>Email</th>
                   <th>Địa Chỉ</th>
@@ -46,7 +46,7 @@
                 <tbody>
                 	@foreach( $list_user as $key => $user)
                 <tr>
-                  <td> {{ $key+1 }} </td>
+                  <td> {{ $user->id }} </td>
                   <td> {{ $user->name }} </td>
                   <td> {{ $user->email }} </td>
                   <td> {{ $user->address }} </td>
@@ -55,10 +55,8 @@
                   	Super Admin
                   	@elseif( $user->role == config('constant.admin'))
                   	Admin
-                  	@elseif( $user->role == config('constant.user'))
-                  	User
                   	@else
-                  	Old User
+                  	User
                   	@endif
                   </td>
                   <td>
@@ -69,12 +67,12 @@
                   	@endif 
                   </td>
                   @if( Auth::user()->role < $user->role)
-                  <td><button class="button_option"> <a href="{{route('edit-user',$user->id)}}"> Sửa</a></button></td>
+                  <td><button class="btn btn-default"> <a href="{{route('edit-user',$user->id)}}"> Sửa</a></button></td>
                   <td>
                   	<form action = "{{route('delete-user',$user->id)}}" method="post">
                   		@csrf
                   		@method('delete')
-                  		<button class="button_option" type="submit"> Xóa</button>
+                  		<button class="btn btn-dark" type="submit"> Xóa</button>
                   	</form>
                   </td>
                   @else

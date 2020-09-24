@@ -73,9 +73,11 @@
             </div>
           </div>
         </div>
-         @error('role')
+          @error('role')
             <div style="color:red;">{{ $message }}</div>
           @enderror
+        @else
+          <input type="hidden" name="role" value="{{config('constant.user')}}">
         @endif
         <div class="input-group fix-input">
           <input type="text" class="form-control" placeholder="1:Active 0: Inactive" name="active" value="{{$editUser->active}}">

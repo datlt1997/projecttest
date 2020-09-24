@@ -123,6 +123,7 @@ class UserController extends Controller
 
     /**
      * Search user
+     * 
      * @param Request $request
      */
     public function searchUser(Request $request)

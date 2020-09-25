@@ -19,9 +19,7 @@
   <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
   <!--css input form-->
   <link rel="stylesheet" href="{{asset('assets/css/user.manage.css')}}">
-
-  <link rel="stylesheet" href="{{asset('assets/css/fix.form.user.css')}}">
-
+  
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -40,36 +38,6 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3" action="{{route('search-user')}}" method="post">
-      @csrf
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Tìm Kiếm" name="keyword" 
-        @if(isset($keyword))
-          value="{{$keyword}}" 
-        @endif
-         >
-      </div>
-      <div class="input-group input-group-sm">
-        <select name="selectUser" id="box-select-user">
-          <option value="{{config('constant.selectall')}}">Tất Cả</option>
-          <option value="{{config('constant.active')}}"
-          @if(isset($selectUser))
-            @if($selectUser == config('constant.active'))
-              selected 
-            @endif
-          @endif
-          >Active </option>
-          <option value="{{config('constant.inactive')}}"
-          @if(isset($selectUser))
-            @if($selectUser == config('constant.inactive'))
-              selected 
-            @endif
-          @endif
-          >Inactive</option>
-        </select>
-      </div>
-      <button class="edit-button" type="submit"> Tìm</button>
-    </form>
   </nav>
   <!-- /.navbar -->
 
@@ -102,12 +70,27 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href="{{route('show-user')}}" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Thành viên
+                Quản Lý User
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('show-user')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh Sách User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('add-user')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm mới</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
@@ -153,6 +136,10 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset("/js/demo.js")}}"></script>
 <!-- page script -->
+<!-- bs-custom-file-input -->
+<script src="{{asset('js/bs-custom-file-input.min.js')}}"></script>
+{{-- main js --}}
+<script src="{{asset('assets/js/main.js')}}"></script>
 <script>
   $(function () {
     $("#example1").DataTable({

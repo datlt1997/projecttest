@@ -72,7 +72,7 @@ class UserService
     	return User::where('name', 'like', '%'.$keyword.'%')
                 ->orWhere('email', 'like', '%'.$keyword.'%')
                 ->orWhere('address', 'like', '%'.$keyword.'%')
-                ->paginate(5);
+                ->paginate(5);       
     }
 
     /**
@@ -83,7 +83,7 @@ class UserService
      */
     
     public function searchByActive($selectUser){
-    	return User::where('active', 'like', $selectUser)->paginate(5);
+    	return User::where('status', 'like', $selectUser)->paginate(5);
     }
 
     /**
@@ -94,11 +94,11 @@ class UserService
      * @return array listsearchuser
      */
     public function searchByAll($keyword, $selectUser){
-    	return User::where('active', '=', $selectUser)
-                ->where('name', 'like', '%' . $keyword .'%')
-                ->orWhere('email', 'like', '%' . $keyword . '%')
-                ->orWhere('address', 'like', '%' . $keyword . '%')
-                ->paginate(5);
+        return User::where(function($query) use ($keyword) {
+            $query->where('name', 'like', '%' . $keyword .'%')
+                  ->orWhere('email', 'like', '%' . $keyword . '%')
+                  ->orWhere('address', 'like', '%' . $keyword . '%');
+            })->where('status', '=', $selectUser)->paginate(5); 
     }
 
 }

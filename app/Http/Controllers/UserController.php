@@ -38,7 +38,9 @@ class UserController extends Controller
     {
         $data = $request->only('email', 'password');
         if (Auth::attempt($data)) {
-            if (Auth::user()->active == config('constant.active')) {
+            // return redirect()->route('show-user');
+
+            if (Auth::user()->status == config('constant.active')) {
                 if (Auth::user()->role == config('constant.superadmin')) {
                     return redirect()->route('show-user');
                 } elseif (Auth::user()->role == config('constant.admin')) {
@@ -50,6 +52,8 @@ class UserController extends Controller
             else {
                 return redirect()->back()->with('mess', 'Tài khoản của bạn đã vô hiệu hóa');
             }
+
+            
         }
         else {
         	return redirect()->back()->with('mess', 'Email hoặc mật khẩu của bạn sai');
@@ -81,7 +85,8 @@ class UserController extends Controller
     {
         $data = $request->only('email', 'name', 'password', 'address', 'role');
         $data['password'] = Hash::make($data['password']);
-        $data['active'] = config('constant.active');
+        $data['status'] = config('constant.active');
+        $data['avatar'] = 'abc';
         if(( empty($data['role'] )) || ($data['role'] != config('constant.admin'))) {
             $data['role'] = config('constant.user');
         }
@@ -106,7 +111,8 @@ class UserController extends Controller
      */
     public function updateUser(UpdateUserRequest $request, $id)
     {
-        $data = $request->only('email', 'name', 'password', 'address', 'role', 'active');
+        $data = $request->only('email', 'name', 'password', 'address', 'role', 'status');
+        $data['avatar'] = 'abc';
         $this->userService->updateUser($id, $data);
         return redirect()->route('show-user');
     }
@@ -132,6 +138,7 @@ class UserController extends Controller
         $selectUser = $request->selectUser;
         // dd($selectUser != config('constant.selectall'));
         if ((isset($keyword)) && ($selectUser != config('constant.selectall'))) {
+            // dd($selectUser != config('constant.selectall'));
             $list_user = $this->userService->searchByAll($keyword, $selectUser);
         } elseif (isset($keyword)) {
             $list_user = $this->userService->searchByKey($keyword);

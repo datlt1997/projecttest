@@ -1,87 +1,109 @@
 @extends('admin.master')
-
-@section('title')
-Admin | Add User
-@endsection
-
+@section('title', 'add user')
 @section('main-content')
-<div class="register-box fix-form">
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Register a new membership</p>
-
-      <form action="{{route('save-user')}}" method="post">
-        @csrf
-        <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="Vui lòng nhập tên" name="name" value="{{old('name')}}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-         @error('name')
-            <div style="color:red;">{{ $message }}</div>
-          @enderror
-        <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="vui lòng nhập Email" name="email" value="{{old('email')}}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-         @error('email')
-            <div style="color:red;">{{ $message }}</div>
-          @enderror
-        <div class="input-group fix-input">
-          <input type="password" class="form-control" placeholder=" Vui lòng nhập password" name="password" >
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-         @error('password')
-            <div style="color:red;">{{ $message }}</div>
-          @enderror
-        <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ" name="address" value="{{old('address')}}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-address-card"></span>
-            </div>
-          </div>
-        </div>
-         @error('address')
-            <div style="color:red;">{{ $message }}</div>
-          @enderror
-        @if(Auth::user()->role == 1)
-        <div class="input-group fix-input">
-          <input type="text" class="form-control" placeholder="Quyền Truy Cập 2:Admin, 3:User" name="role">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-         @error('role')
-            <div style="color:red;">{{ $message }}</div>
-          @enderror
-        @else
-          <input type="hidden" name="role" value="{{config('constant.user')}}">
-        @endif
-        <div class="row fix-button">
-          <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+<!-- Content Wrapper. Contains page content -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <h1>Add User</h1>
+      </div>
     </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-<!-- /.register-box -->
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Register a new membership</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <form action="{{route('save-user')}}" method="post">
+                @csrf
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Tên Người Dùng</label>
+                    <input type="text" class="form-control" placeholder="Vui lòng nhập tên" name="name" value="{{old('name')}}">
+                  </div>
+                  @error('name')
+                  <div style="color:red;">{{ $message }}</div>
+                  @enderror
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Email</label>
+                    <input type="text" class="form-control" placeholder="vui lòng nhập Email" name="email" value="{{old('email')}}">
+                  </div>
+                  @error('name')
+                  <div style="color:red;">{{ $message }}</div>
+                  @enderror
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">password</label>
+                    <input type="password" class="form-control" placeholder=" Vui lòng nhập password" name="password" >
+                  </div>
+                  @error('name')
+                  <div style="color:red;">{{ $message }}</div>
+                  @enderror
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Địa Chỉ</label>
+                    <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ" name="address" value="{{old('address')}}">
+                  </div>
+                  @error('name')
+                  <div style="color:red;">{{ $message }}</div>
+                  @enderror
+                  @if(Auth::user()->role == config('constant.superadmin'))
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Quyền</label>
+                    <div class="form-check">
+                      <input type="radio" id="Admin" name="role" value="{{config('constant.admin')}}">
+                      <label for="Admin">Admin</label><br>
+                    </div>
+                    <div class="form-check">
+                      <input type="radio" id="User" name="role" value="{{config('constant.user')}}" checked >
+                      <label for="User">User</label><br>
+                    </div>
+                    @error('role')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
+                    @else
+                    <input type="hidden" name="role" value="{{config('constant.user')}}">
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Upload Avatar</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!-- /.col -->
+                    <div class="col-12 fix-button">
+                      <button type="submit" class="btn btn-primary btn-block">Thêm User</button>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                </div>       
+
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+
 @endsection

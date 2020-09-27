@@ -1,9 +1,11 @@
 td,th{
 	text-align: center;
 }
+
 .edit-form{
 	margin:0 auto;
 }
+
 #box-select-user{
 	width: 200px;
     margin-left: 15%;
@@ -14,6 +16,7 @@ td,th{
     font-size: 14px;
     border: 1px solid #f2f4f6;
 }
+
 .edit-button{
 	width: 100px;
     border: 1px solid #f2f4f6;
@@ -21,17 +24,21 @@ td,th{
     height: 32px;
     margin-left: 20px;
 }
+
 .edit-button:hover{
 	color: #3b64a0;
     background: #bff3f3;
 }
+
 .button-option{
 	width: 70px
 	height:30px;
 }
+
 .fix-input,.fix-button {
     margin-top: 20px;
 }
+
 .fix-form {
     position: absolute !important;
     left: 50%;
@@ -39,9 +46,11 @@ td,th{
     top: 50%;
     margin-top: -180px;
 }
+
 button a{
     color:white;
 }
+
 .fix-border{
     border-right: 1px solid #0000003d;
     border-radius: 5px;

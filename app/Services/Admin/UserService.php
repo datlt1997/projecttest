@@ -13,7 +13,7 @@ class UserService
      */
     public function getAllUser()
     {
-    	return User::paginate(5);
+    	return User::paginate(config('constant.paginate'));
     }
 
     /**
@@ -63,42 +63,17 @@ class UserService
     }
 
     /**
-     * search user by keyword
-     * 
-     * @param string $keyword
-     * @return array listsearchuser
-     */
-    public function searchByKey($keyword){
-    	return User::where('name', 'like', '%'.$keyword.'%')
-                ->orWhere('email', 'like', '%'.$keyword.'%')
-                ->orWhere('address', 'like', '%'.$keyword.'%')
-                ->paginate(5);       
-    }
-
-    /**
-     * search user by active status
-     * 
-     * @param string $selectUser
-     * @return array listsearchuser
-     */
-    
-    public function searchByActive($selectUser){
-    	return User::where('status', 'like', $selectUser)->paginate(5);
-    }
-
-    /**
-     * search user by keyword and active status
+     * search user by keyword and status
      * 
      * @param string $keyword 
      * @param string $selectUser
      * @return array listsearchuser
      */
-    public function searchByAll($keyword, $selectUser){
-        return User::where(function($query) use ($keyword) {
-            $query->where('name', 'like', '%' . $keyword .'%')
-                  ->orWhere('email', 'like', '%' . $keyword . '%')
-                  ->orWhere('address', 'like', '%' . $keyword . '%');
-            })->where('status', '=', $selectUser)->paginate(5); 
+    public function searchUser($keyword, $selectUser){   
+        if($selectUser == 'all') {
+            return User::key($keyword)->paginate(config('constant.paginate')); 
+        } else {
+            return User::key($keyword)->select($selectUser)->paginate(config('constant.paginate'));
+        }  
     }
-
 }

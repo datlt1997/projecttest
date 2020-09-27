@@ -5,6 +5,4 @@ $(document).ready(function($){
 		document.getElementById("delete-name").innerHTML = "Bạn muốn xóa " + name;
 		document.getElementById("delete-modal").action =  id + "/delete";
 	});
-
-
 });

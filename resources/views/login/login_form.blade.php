@@ -24,14 +24,14 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{url('/')}}"><b>HỆ THỐNG TRAINING</b></a>
+    <a href="#"><b>HỆ THỐNG TRAINING</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">LOGIN</p>
 
-      <form action="{{route('user-login')}}" method="post">
+      <form action="{{route('admin-login')}}" method="post">
         @csrf
         @if(session('mess'))
               <div style="color:red; margin-bottom: 15px; text-align: center;">{{ session('mess') }}</div>

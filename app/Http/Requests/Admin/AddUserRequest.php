@@ -25,7 +25,7 @@ class AddUserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:30',
-            'email' => 'required|email|min:10',
+            'email' => 'required|email|min:10|unique:users',
             'password' => 'required|min:6',
             'address' => 'required|min:10',
             'role' => 'required|max:1',
@@ -43,6 +43,7 @@ class AddUserRequest extends FormRequest
             'name.max' =>'Không nhập quá 30 ký tự',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không hợp lệ',
+            'email.unique' => 'Email đã tồn tại',
             'email.min' => 'Vui lòng nhập email từ 10 ký tự',
             'password.required' => 'Vui lòng nhập password',
             'password.min' => 'Vui lòng nhập password từ 6 ký tự',

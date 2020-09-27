@@ -6,5 +6,6 @@ return [
 	'active' => '1',
 	'inactive' => '0',
 	'selectall' => 'all',
+	'paginate' =>'5',
 ]
 ?>

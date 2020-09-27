@@ -16,18 +16,20 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             if (Auth::user()->status == config('constant.active')) {
-                if (Auth::user()->role < config('constant.user')) {
+                if (Auth::user()->role == config('constant.superadmin')) {
+                    return $next($request);
+                } elseif (Auth::user()->role == config('constant.admin')) {
                     return $next($request);
                 } else {
-                    return redirect()->back()->with('mess', 'Bạn Không có quyền vào trang này');
-                }
+                    return redirect()->route('login-admin');
+                } 
+            } else {
+                return redirect()->route('login-admin');
             }
-            else {
-                return redirect()->back()->with('mess', 'Tài khoản của bạn đã vô hiệu hóa');
-            }
+        } else {
+            return redirect()->route('login-admin');
         }
-        
     }
 }

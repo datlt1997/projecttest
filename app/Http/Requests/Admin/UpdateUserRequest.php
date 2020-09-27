@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email|min:10',
             'address' => 'required|min:10',
             'role' => 'required|max:1',
-            'active' => 'required|max:1'
+            'status' => 'required|max:1'
         ];
     }
 
@@ -44,6 +44,7 @@ class UpdateUserRequest extends FormRequest
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không hợp lệ',
             'email.min' => 'Vui lòng nhập email từ 10 ký tự',
+            'email.unique' => 'Email đã tồn tại',
             'address.required' => 'Vui lòng nhập thông tin địa chỉ của bạn',
             'address.min' => 'Địa chỉ phải ít nhất 10 ký tự',
             'role.required' => 'Vui lòng điền quyền hạn',

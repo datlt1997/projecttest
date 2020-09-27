@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Admin\LoginFormRequest;
 use App\Http\Requests\Admin\AddUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Services\Admin\UserService;
@@ -23,50 +23,12 @@ class UserController extends Controller
     }
 
     /**
-     * Show form login 
-     */
-    public function loginFormAdmin()
-    {
-        return view('login.login_form');
-    }
-
-    /**
-     * This function is login website
-     * @param LoginFormRequest $request
-     */
-    public function loginUser(LoginFormRequest $request)
-    {
-        $data = $request->only('email', 'password');
-        if (Auth::attempt($data)) {
-            // return redirect()->route('show-user');
-
-            if (Auth::user()->status == config('constant.active')) {
-                if (Auth::user()->role == config('constant.superadmin')) {
-                    return redirect()->route('show-user');
-                } elseif (Auth::user()->role == config('constant.admin')) {
-                    return redirect()->route('show-user');
-                } else {
-                    return redirect()->route('login-admin')->with('mess', 'Bạn Không có quyền vào trang này');
-                } 
-            }
-            else {
-                return redirect()->back()->with('mess', 'Tài khoản của bạn đã vô hiệu hóa');
-            }
-
-            
-        }
-        else {
-        	return redirect()->back()->with('mess', 'Email hoặc mật khẩu của bạn sai');
-        }
-    }
-
-    /**
      * Display a listing of User
      */
     public function showUser()
     {
-        $list_user = $this->userService->getAllUser();
-        return view('admin.user.list_user', compact('list_user'));
+        $listUser = $this->userService->getAllUser();
+        return view('admin.user.list_user', compact('listUser'));
     }
 
     /**
@@ -136,19 +98,7 @@ class UserController extends Controller
     {
         $keyword = $request->keyword;
         $selectUser = $request->selectUser;
-        // dd($selectUser != config('constant.selectall'));
-        if ((isset($keyword)) && ($selectUser != config('constant.selectall'))) {
-            // dd($selectUser != config('constant.selectall'));
-            $list_user = $this->userService->searchByAll($keyword, $selectUser);
-        } elseif (isset($keyword)) {
-            $list_user = $this->userService->searchByKey($keyword);
-
-        } elseif ($selectUser != config('constant.selectall')) {
-            $list_user = $this->userService->searchByActive($selectUser);
-
-        } else {
-            $list_user = $this->userService->getAllUser();
-        }
-        return view('admin.user.list_user', compact('list_user', 'keyword', 'selectUser'));
+        $listUser = $this->userService->searchUser($keyword, $selectUser);
+        return view('admin.user.list_user', compact('listUser', 'keyword', 'selectUser'));
     }
 }

@@ -18,22 +18,23 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin/', 'namespace' => 'Admin'], function() {
+	
+	Route::get('/','LoginController@loginFormAdmin')->name('form-login-admin')->middleware('checklogin');
+	Route::post('loginUser', 'LoginController@loginAdmin')->name('admin-login');
+	Route::get('logout', 'LoginController@logoutAdmin')->name('admin-logout');
 
-Route::prefix('admin/')->group(function () {
-	Route::get('/','UserController@loginFormAdmin')->name('login-admin');
-
-	// Route::group(['middleware' => ['admin']], function () {
-		Route::post('loginUser', 'UserController@loginUser')->name('user-login');
-
-		Route::prefix('user/')->group(function () {
+	Route::group(['middleware' => ['admin']], function () {
+		Route::group(['prefix' => 'user/',], function() {
 			Route::get('list', 'UserController@showUser')->name('show-user');
 			Route::get('register', 'UserController@addUser')->name('add-user');
 			Route::post('add', 'UserController@saveUser')->name('save-user');
 			Route::get('{id}/edit', 'UserController@editUser')->name('edit-user');
 			Route::put('{id}/update', 'UserController@updateUser')->name('update-user');
 			Route::delete('{id}/delete', 'UserController@deleteUser')->name('delete-user');
-			Route::get('search','UserController@searchUser')->name('search-user');
+			Route::get('search/','UserController@searchUser')->name('search-user');
 		});
-	// });
+	});
+
 });
 

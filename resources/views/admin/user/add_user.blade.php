@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('title', 'add user')
+@section('title', 'Admin | Add user')
 @section('main-content')
 <!-- Content Wrapper. Contains page content -->
 <!-- Content Header (Page header) -->
@@ -32,34 +32,39 @@
               <form action="{{route('save-user')}}" method="post">
                 @csrf
                 <div class="card-body">
+
                   <div class="form-group">
                     <label for="exampleInputEmail1">Tên Người Dùng</label>
                     <input type="text" class="form-control" placeholder="Vui lòng nhập tên" name="name" value="{{old('name')}}">
-                  </div>
-                  @error('name')
-                  <div style="color:red;">{{ $message }}</div>
-                  @enderror
+                    @error('name')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
+                  </div>     
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">Email</label>
                     <input type="text" class="form-control" placeholder="vui lòng nhập Email" name="email" value="{{old('email')}}">
+                    @error('email')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
                   </div>
-                  @error('name')
-                  <div style="color:red;">{{ $message }}</div>
-                  @enderror
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">password</label>
                     <input type="password" class="form-control" placeholder=" Vui lòng nhập password" name="password" >
+                    @error('password')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
                   </div>
-                  @error('name')
-                  <div style="color:red;">{{ $message }}</div>
-                  @enderror
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">Địa Chỉ</label>
                     <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ" name="address" value="{{old('address')}}">
+                    @error('address')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
                   </div>
-                  @error('name')
-                  <div style="color:red;">{{ $message }}</div>
-                  @enderror
+                  
                   @if(Auth::user()->role == config('constant.superadmin'))
                   <div class="form-group">
                     <label for="exampleInputPassword1">Quyền</label>
@@ -78,6 +83,7 @@
                     <input type="hidden" name="role" value="{{config('constant.user')}}">
                     @endif
                   </div>
+
                   <div class="form-group">
                     <label for="exampleInputFile">Upload Avatar</label>
                     <div class="input-group">
@@ -86,7 +92,11 @@
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                     </div>
-                  </div>
+                    @error('avatar')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
+                  </div>               
+
                   <div class="row">
                     <!-- /.col -->
                     <div class="col-12 fix-button">
@@ -95,7 +105,6 @@
                     <!-- /.col -->
                   </div>
                 </div>       
-
               </form>
             </div>
           </div>

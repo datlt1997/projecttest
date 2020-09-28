@@ -25,9 +25,9 @@
 
           <div class="card-tools">
 
-              <form class="form-inline ml-3" action="{{route('search-user')}}" method="get">
+              <form class="form-inline ml-3" method="get" action="{{route('search-user', ['','all'])}}">
                 <div class="input-group input-group-sm fix-border">
-                  <input class="form-control form-control-navbar" type="search" placeholder="Tìm Kiếm" name="keyword" 
+                  <input class="form-control form-control-navbar" type="search" placeholder="Tìm Kiếm" name="keyword"
                   @if(isset($keyword))
                   value="{{$keyword}}" 
                   @endif

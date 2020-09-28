@@ -25,7 +25,7 @@
 
             <div class="card-tools">
 
-              <form class="form-inline ml-3" method="get" action="{{route('search-user', ['','all'])}}">
+              <form class="form-inline ml-3" method="get" action="{{route('search-user')}}">
                 <div class="input-group input-group-sm fix-border">
                   <input class="form-control form-control-navbar" type="search" placeholder="Tìm Kiếm" name="keyword"
                   @if(isset($keyword))
@@ -100,7 +100,7 @@
               </td>
               @if( Auth::user()->role < $user->role)
               <td><a href="{{route('edit-user',$user->id)}}"><button class="btn btn-warning">Sửa</button></a>
-                <button type="button" class="btn btn-danger delete-product" data-toggle="modal" data-target="#delete" data-name="{{$user->name}}" data-id="{{ $user->id }}">Xóa</button>
+                <button type="button" class="btn btn-danger delete-item" data-toggle="modal" data-target="#delete" data-name="{{$user->name}}" data-id="{{ $user->id }}">Xóa</button>
               </td>
               @else
               <td>N/A</td>

@@ -2,11 +2,11 @@ td,th{
 	text-align: center;
 }
 
-.edit-form{
+.edit-form {
 	margin:0 auto;
 }
 
-#box-select-user{
+#box-select-user {
 	width: 200px;
     margin-left: 15%;
     height: 31px;
@@ -17,7 +17,7 @@ td,th{
     border: 1px solid #f2f4f6;
 }
 
-.edit-button{
+.edit-button {
 	width: 100px;
     border: 1px solid #f2f4f6;
     border-radius: 5px;
@@ -25,12 +25,12 @@ td,th{
     margin-left: 20px;
 }
 
-.edit-button:hover{
+.edit-button:hover {
 	color: #3b64a0;
     background: #bff3f3;
 }
 
-.button-option{
+.button-option {
 	width: 70px
 	height:30px;
 }
@@ -47,11 +47,18 @@ td,th{
     margin-top: -180px;
 }
 
-button a{
+button a {
     color:white;
 }
 
-.fix-border{
+.fix-border {
     border-right: 1px solid #0000003d;
     border-radius: 5px;
+}
+
+.pagination li {
+    margin:0 4px;
+    font-style: initial;
+    font-family: sans-serif;
+    font-weight: lighter;
 }

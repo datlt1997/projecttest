@@ -38,14 +38,37 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * scopeKeyword
+     * @param  array $query 
+     * @param  string $key  
+     * @return array       
+     */
     public function scopeKey($query, $key)
     {
         return $query->where('name', 'like', '%' . $key . '%')
                      ->orWhere('email', 'like', '%' . $key . '%')
                      ->orWhere('address', 'like', '%' . $key . '%');
     }
+
+    /**
+     * scopeSelectuser
+     * @param  array $query  
+     * @param  string $select
+     * @return array
+     */
     public function scopeSelect($query, $select)
     {
         return $query->where('status', '=', $select);
     }
+
+    /**
+     * oNE TO MANY POST
+     */
+    public function Post()
+    {
+        return $this->hasMany('App\Models\Post', 'user_id', 'id');
+    }
+
+
 }

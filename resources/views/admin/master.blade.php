@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
   <!--css master layout-->
   <link rel="stylesheet" href="{{asset('assets/css/user.manage.css')}}">
+    <!-- summernote -->
+  <link rel="stylesheet" href="{{asset('js/summernote/summernote-bs4.css')}}">
   
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -89,6 +91,29 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Quản Lý Bài Viết
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('show-post')}}" class="nav-link">
+                  <i class="fas fa-list-alt nav-icon"></i>
+                  <p>Danh Sách Bài viết</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('add-post')}}" class="nav-link">
+                  <i class="fas fa-user-plus nav-icon"></i>
+                  <p>Thêm mới</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a href="{{route('admin-logout')}}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -144,9 +169,12 @@
 <script src="{{asset('js/bs-custom-file-input.min.js')}}"></script>
 <!-- main js -->
 <script src="{{asset('assets/js/main.js')}}"></script>
+<!-- Summernote -->
+<script src="{{asset('js/summernote/summernote-bs4.min.js')}}"></script>
 
 <script>
   $(function () {
+     $('.textarea').summernote()
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": false,

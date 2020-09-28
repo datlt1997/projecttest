@@ -98,7 +98,11 @@ class UserController extends Controller
     {
         $keyword = $request->keyword;
         $selectUser = $request->selectUser;
-        $listUser = $this->userService->searchUser($keyword, $selectUser);
+        $path = 'search?keyword=' . $keyword . '&selectUser=' . $selectUser;
+        // dd($path);
+        $listUser = $this->userService->searchUser($keyword, $selectUser)->setpath($path);
+
+        // dd($listUser);
         return view('admin.user.list_user', compact('listUser', 'keyword', 'selectUser'));
     }
 }

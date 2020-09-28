@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'Admin'], function() {
 			Route::get('{id}/edit', 'UserController@editUser')->name('edit-user');
 			Route::put('{id}/update', 'UserController@updateUser')->name('update-user');
 			Route::delete('{id}/delete', 'UserController@deleteUser')->name('delete-user');
-			Route::get('search','UserController@searchUser')->name('search-user');
+			Route::any('search','UserController@searchUser')->name('search-user');
 		});
 	});
 

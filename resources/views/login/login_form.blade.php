@@ -40,10 +40,10 @@
           @error('email')
             style="border: 1px solid red; color:red;"
           @enderror>
-          <input type="text" class="form-control" placeholder="Nhập Email" name="email" value="{{old('email')}}">
+          <input type="text" class="form-control" placeholder="Nhập Username" name="name" value="{{old('name')}}">
         </div>
         <div class="col-12">
-          @error('email')
+          @error('name')
             <div style="color:red;">{{ $message }}</div>
           @enderror
         </div>

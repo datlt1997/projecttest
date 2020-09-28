@@ -20,7 +20,7 @@ class LoginController extends Controller
      */
     public function loginAdmin(LoginFormRequest $request)
     {
-        $data = $request->only('email', 'password');
+        $data = $request->only('name', 'password');
         if (Auth::attempt($data)) {
             if (Auth::user()->status == config('constant.active')) {
                 if ( (Auth::user()->role == config('constant.superadmin')) || (Auth::user()->role == config('constant.admin'))) {

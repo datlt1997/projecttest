@@ -98,7 +98,7 @@ class PostController extends Controller
     {
     	$keyword = $request->keyword;
     	$selectpost = $request->selectpost;
-    	$this->postservice->getSearchPost($keyword, $selectpost);
+    	$listPost = $this->postservice->getSearchPost($keyword, $selectpost);
     	return view('admin.post.list_post', compact('listPost', 'selectpost', 'keyword'));
     }
 }

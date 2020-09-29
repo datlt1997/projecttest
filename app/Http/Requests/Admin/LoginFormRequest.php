@@ -36,8 +36,8 @@ class LoginFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập email',
-            'name.min' => 'Vui lòng nhập email từ 10 ký tự',
+            'name.required' => 'Vui lòng nhập username',
+            'name.min' => 'Vui lòng nhập usename từ 10 ký tự',
             'password.required' => 'Vui lòng nhập password',
             'password.min' => 'Vui lòng nhập password từ 6 ký tự',
         ];

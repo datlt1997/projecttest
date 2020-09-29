@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         $data = $request->only('email', 'name','username', 'password', 'address', 'role', 'status');
         if(is_null($request->status)) {
-            $this->userService->checkStatus($id);
+            $data['status'] = config('constant.inactive');
         }
         if($request->hasFile('avatar')) {
             $this->userService->getDeleteImage($id);

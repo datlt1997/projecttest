@@ -56,7 +56,7 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="{{asset("images/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{asset('images/Admin/avatar/'.Auth::user()->avatar)}}" width="160px" height="160px" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="d-block">{{Auth::user()->name}}</a>
@@ -93,7 +93,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-mail-bulk"></i>
               <p>
                 Quản Lý Bài Viết
                 <i class="right fas fa-angle-left"></i>

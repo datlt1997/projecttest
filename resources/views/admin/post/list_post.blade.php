@@ -41,7 +41,7 @@
 								</div>
 								<div class="input-group input-group-sm">
 									<select name="selectpost" id="box-select-user">
-										<option value="{{config('constant.selectall')}}">Tất Cả</option>
+										<option value="">Tất Cả</option>
 										<option value="{{config('constant.active')}}"
 										@if(isset($selectpost) &&($selectpost == config('constant.active')))
 										selected 

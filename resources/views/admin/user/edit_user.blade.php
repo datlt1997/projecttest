@@ -130,11 +130,9 @@
                     @enderror --}}
                     <label for="exampleInputPassword1">Trạng Thái</label>
                     <div class="card-body">
-                      <input type="checkbox" name="status" data-bootstrap-switch
-                      @if($editUser->status == config('constant.active'))
-                      checked value = "{{config('constant.active')}}"
-                      @else
-                      value = "{{config('constant.inactive')}}"
+                      <input type="checkbox" name="status" data-bootstrap-switch  value = "{{config('constant.active')}}"
+                      @if($editUser->status == config('constant.active')) 
+                      checked
                       @endif>
                     </div>
                      @error('status')

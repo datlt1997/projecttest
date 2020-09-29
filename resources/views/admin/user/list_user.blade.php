@@ -133,7 +133,7 @@
           </tbody>
         </table>
         <br>
-        {!! $listUser->render() !!}
+        {!! $listUser->render('vendor.pagination.bootstrap-4') !!}
       </div>
     </div>
   </div>

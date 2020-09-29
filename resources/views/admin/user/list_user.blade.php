@@ -1,17 +1,25 @@
 @extends('admin.master')
 
 @section('title','Admin | List User')
+
+@section('breadcrub')
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h1 class="m-0 text-dark">Add User</h1>
+  </div><!-- /.col -->
+  <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
+      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}">User</a></li>
+      <li class="breadcrumb-item fix-breadcrumb active">List User</li>
+    </ol>
+  </div><!-- /.col -->
+</div>
+@endsection
+
 @section('main-content')
 <!-- Content Header (Page header) -->
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-xs-6">
-        <h1>Tất cả thành viên</h1>
-      </div>
-    </div>
-  </div>
-</section>
+
 <!-- /.container-fluid -->
 <section class="content">
   <div class="container-fluid">
@@ -35,7 +43,7 @@
                 </div>
                 <div class="input-group input-group-sm">
                   <select name="selectUser" id="box-select-user">
-                    <option value="{{config('constant.selectall')}}">Tất Cả</option>
+                    <option value="">Tất Cả</option>
                     <option value="{{config('constant.active')}}"
                     @if(isset($selectUser))
                     @if($selectUser == config('constant.active'))
@@ -65,6 +73,8 @@
             <tr>
               <th>ID</th>
               <th>Tên</th>
+              <th>UserName</th>
+              <th>Avatar</th>
               <th>Email</th>
               <th>Địa Chỉ</th>
               <th>Quyền</th>
@@ -73,10 +83,14 @@
             </tr>
           </thead>
           <tbody>
+            {{-- {{$i = $listUser->currentPage()}} --}}
             @foreach( $listUser as $key => $user)
+            {{-- @if($user->role > Auth::user()->role) --}}
             <tr style="height: 60px">
-              <td> {{ $user->id }} </td>
+              <td> {{ ++$key + ($listUser->currentPage()-1)*config('constant.paginate') }}</td>
               <td> {{ $user->name }} </td>
+              <td> {{ $user->username }} </td>
+              <td> <img src="{{asset('images/Admin/avatar/'.$user->avatar)}}" style="width: 100px;"> </td>
               <td> {{ $user->email }} </td>
               <td> {{ $user->address }} </td>
               <td>
@@ -94,8 +108,16 @@
               <td>
                 @if( $user->status == config('constant.active'))
                 <span class="badge bg-primary">Hoạt Động</span>
+
+                {{-- <span type="button" class="btn btn-block btn-outline-warning btn-xs change-item" data-toggle="modal" data-target="#change-status" data-name-status="Hoạt Động" data-id-status="{{ $user->id }}">Khóa</span> --}}
+
+                <button type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="{{config('constant.lock')}}" data-id-status="{{ $user->id }}">Khóa</button>
                 @else
                 <span class="badge bg-danger">Khóa</span>
+
+ {{--                <span type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="Khóa" data-id-status="{{ $user->id }}">Hoạt Động</span> --}}
+
+                <button type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="{{config('constant.unlock')}}" data-id-status="{{ $user->id }}">Hoạt Động</button>
                 @endif 
               </td>
               @if( Auth::user()->role < $user->role)
@@ -106,6 +128,7 @@
               <td>N/A</td>
               @endif
             </tr>
+            {{-- @endif --}}
             @endforeach
           </tbody>
         </table>
@@ -135,10 +158,34 @@
           <button class="btn btn-danger delete-modal" type="submit"> Xóa</button>
         </form>
 
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
       </div>
     </div>
 
+  </div>
+</div>
+<div class="modal fade" id="change-status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thay Đổi Trạng Thái Người Dùng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="status-name"></p>
+      </div>
+      <div class="modal-footer">
+        <form action = '' method="post" id="change-status-form">
+          @csrf
+          @method('put')
+          <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
   </div>
 </div>
 @endsection

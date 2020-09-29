@@ -20,7 +20,7 @@ class LoginController extends Controller
      */
     public function loginAdmin(LoginFormRequest $request)
     {
-        $data = $request->only('name', 'password');
+        $data = $request->only('username', 'password');
         if (Auth::attempt($data)) {
             if (Auth::user()->status == config('constant.active')) {
                 if ( (Auth::user()->role == config('constant.superadmin')) || (Auth::user()->role == config('constant.admin'))) {
@@ -32,7 +32,7 @@ class LoginController extends Controller
                 return redirect()->back()->with('mess', 'Tài khoản của bạn đã vô hiệu hóa');
             }            
         } else {
-        	return redirect()->back()->with('mess', 'Email hoặc mật khẩu của bạn sai');
+        	return redirect()->back()->with('mess', 'User hoặc mật khẩu của bạn sai');
         }
     }
 

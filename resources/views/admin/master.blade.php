@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
   <!--css master layout-->
   <link rel="stylesheet" href="{{asset('assets/css/user.manage.css')}}">
-    <!-- summernote -->
+  <!-- summernote -->
   <link rel="stylesheet" href="{{asset('js/summernote/summernote-bs4.css')}}">
   
   <!-- Google Font: Source Sans Pro -->
@@ -131,6 +131,11 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+          @yield('breadcrub')
+      </div>
+    </section>
 
     @yield('main-content')
 
@@ -166,29 +171,34 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('/js/demo.js')}}"></script>
 <!-- bs-custom-file-input -->
-<script src="{{asset('js/bs-custom-file-input.min.js')}}"></script>
+<script src="{{asset('js/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 <!-- main js -->
 <script src="{{asset('assets/js/main.js')}}"></script>
 <!-- Summernote -->
 <script src="{{asset('js/summernote/summernote-bs4.min.js')}}"></script>
-
+{{-- boostrap switch --}}
+<script src="{{asset('js/bootstrap-switch.min.js')}}"></script>
 <script>
   $(function () {
-     $('.textarea').summernote()
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
     });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+    bsCustomFileInput.init();
+   $('.textarea').summernote()
+   $("#example1").DataTable({
+    "responsive": true,
+    "autoWidth": false,
   });
+   $('#example2').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": false,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+  });
+ });
 </script>
 </body>
 </html>

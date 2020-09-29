@@ -3,6 +3,8 @@
 namespace App\Services\Admin;
 
 use App\Models\User;
+use Auth;
+use File;
 
 class UserService
 {    
@@ -13,7 +15,7 @@ class UserService
      */
     public function getAllUser()
     {
-    	return User::paginate(config('constant.paginate'));
+    	return User::where('role','>', Auth::user()->role)->paginate(config('constant.paginate'));
     }
 
     /**
@@ -70,10 +72,50 @@ class UserService
      * @return array listsearchuser
      */
     public function searchUser($keyword, $selectUser){   
-        if($selectUser == 'all') {
-            return User::key($keyword)->paginate(config('constant.paginate')); 
+        $user = User::key($keyword);
+        if(!is_null($selectUser)) {
+            $user = $user->selectbox($selectUser);
+        }
+        $user = $user->where('role','>', Auth::user()->role)->paginate(config('constant.paginate'));
+        return $user;
+    }
+
+    /**
+     * DeleteImage
+     * @param  int $id
+     * @return
+     */
+    public function getDeleteImage($id)
+    {
+        return File::delete('images/Admin/avatar/'. User::find($id)->avatar);
+    }
+
+    /**
+     * Change Status
+     * @param  int $id
+     * @return
+     */
+    public function getChangeStatus($id)
+    {
+        if(User::find($id)->status == config('constant.active')) {
+            $data['status'] = config('constant.inactive');
         } else {
-            return User::key($keyword)->select($selectUser)->paginate(config('constant.paginate'));
-        }  
+            $data['status'] = config('constant.active');
+        }
+        User::find($id)->update($data);
+    }
+
+    /**
+     * check status
+     * @param  int $id
+     * @return
+     */
+    public function checkStatus($id)
+    {
+        if(User::find($id)->status == config('constant.active')) {
+            return $data['status'] = config('constant.inactive');
+        } else {
+            return $data['status'] = config('constant.active');
+        }
     }
 }

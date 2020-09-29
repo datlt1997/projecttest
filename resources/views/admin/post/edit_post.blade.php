@@ -1,18 +1,21 @@
 @extends('admin.master')
 @section('title' ,'Admin | Edit Post')
 
+@section('breadcrub')
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h1 class="m-0 text-dark">Sửa Bài Viết</h1>
+  </div><!-- /.col -->
+  <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
+      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-post')}}">Post</a></li>
+      <li class="breadcrumb-item fix-breadcrumb active">Edit Post</li>
+    </ol>
+  </div><!-- /.col -->
+</div>
+@endsection
 @section('main-content')
-<!-- Content Wrapper. Contains page content -->
-<!-- Content Header (Page header) -->
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-12">
-				<h1>Sửa Bài Viết</h1>
-			</div>
-		</div>
-	</div><!-- /.container-fluid -->
-</section>
 
 <!-- Main content -->
 <section class="content">

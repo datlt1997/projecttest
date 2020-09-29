@@ -1,17 +1,22 @@
 @extends('admin.master')
 @section('title', 'Admin | Edit user')
+
+@section('breadcrub')
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h1 class="m-0 text-dark">Sửa User</h1>
+  </div><!-- /.col -->
+  <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
+      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}">User</a></li>
+      <li class="breadcrumb-item fix-breadcrumb active">Edit User</li>
+    </ol>
+  </div><!-- /.col -->
+</div>
+@endsection
+
 @section('main-content')
-<!-- Content Wrapper. Contains page content -->
-<!-- Content Header (Page header) -->
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-12">
-        <h1>Edit User</h1>
-      </div>
-    </div>
-  </div><!-- /.container-fluid -->
-</section>
 
 <!-- Main content -->
 <section class="content">
@@ -27,9 +32,8 @@
           <!-- /.card-header -->
           <!-- form start -->
           <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-              <form action="{{route('update-user',$editUser->id)}}" method="post">
+            <div class="col-md-12">
+              <form action="{{route('update-user',$editUser->id)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="card-body">
@@ -40,7 +44,15 @@
                     @error('name')
                     <div style="color:red;">{{ $message }}</div>
                     @enderror
-                  </div>                  
+                  </div>   
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">User Name</label>
+                    <input type="text" class="form-control" placeholder="Vui lòng nhập Username" name="username" value="{{$editUser->username}}">
+                    @error('name')
+                    <div style="color:red;">{{ $message }}</div>
+                    @enderror
+                  </div>               
 
                   <div class="form-group">
                     <label for="exampleInputPassword1">Email</label>
@@ -63,22 +75,30 @@
                   @if(Auth::user()->role == config('constant.superadmin'))
                   <div class="form-group">
                     <label for="exampleInputPassword1">Quyền</label>
-                    <div class="form-check">
-                      <input type="radio" id="Admin" name="role" value="{{config('constant.admin')}}"
-                      @if($editUser->role == config('constant.admin'))
-                      checked 
-                      @endif
-                      >
-                      <label for="Admin">Admin</label><br>
-                    </div>
-                    <div class="form-check">
-                      <input type="radio" id="User" name="role" value="{{config('constant.user')}}"
-                      @if($editUser->role == config('constant.user'))
-                      checked 
-                      @endif
-                      >
-                      <label for="User">User</label><br>
-                    </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <div class="form-check">
+                          <input type="radio" id="Admin" name="role" value="{{config('constant.admin')}}"
+                          @if($editUser->role == config('constant.admin'))
+                          checked 
+                          @endif
+                          >
+                          <label for="Admin">Admin</label><br>
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="form-check">
+
+                          <input type="radio" id="User" name="role" value="{{config('constant.user')}}"
+                          @if($editUser->role == config('constant.user'))
+                          checked 
+                          @endif
+                          >
+                          <label for="User">User</label><br>
+                        </div>
+                      </div>
+                    </div>            
+
                     @else
                     <input type="hidden" name="role" value="{{config('constant.user')}}">
                     @endif
@@ -88,7 +108,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Trạng Thái</label>
+                    {{-- <label for="exampleInputPassword1">Trạng Thái</label>
                     <div class="form-check">
                       <input type="radio" id="Active" name="status" value="{{config('constant.active')}}"  
                       @if($editUser->status == config('constant.active'))
@@ -107,28 +127,39 @@
                     </div>
                     @error('status')
                     <div style="color:red;">{{ $message }}</div>
+                    @enderror --}}
+                    <label for="exampleInputPassword1">Trạng Thái</label>
+                    <div class="card-body">
+                      <input type="checkbox" name="status" data-bootstrap-switch
+                      @if($editUser->status == config('constant.active'))
+                      checked value = "{{config('constant.active')}}"
+                      @else
+                      value = "{{config('constant.inactive')}}"
+                      @endif>
+                    </div>
+                     @error('status')
+                    <div style="color:red;">{{ $message }}</div>
                     @enderror
                   </div>
 
+                    
+                  
                   <div class="form-group">
                     <label for="exampleInputFile">Upload Avatar</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name='avatar'>
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>                        
                       </div>
                     </div>
                     @error('avatar')
                     <div style="color:red;">{{ $message }}</div>
                     @enderror
                   </div>
-
+                  <img src="{{asset('images/Admin/avatar/'.$editUser->avatar)}}" style="width: 100px;">
                   <div class="row">
                     <!-- /.col -->
-                    <div class="col-12 fix-button">
+                    <div class="col-2 fix-button">
                       <button type="submit" class="btn btn-primary btn-block">Sửa User</button>
                     </div>
                     <!-- /.col -->

@@ -37,13 +37,13 @@
               <div style="color:red; margin-bottom: 15px; text-align: center;">{{ session('mess') }}</div>
             @endif
         <div class="input-group fix-border"  
-          @error('email')
+          @error('username')
             style="border: 1px solid red; color:red;"
           @enderror>
-          <input type="text" class="form-control" placeholder="Nhập Username" name="name" value="{{old('name')}}">
+          <input type="text" class="form-control" placeholder="Nhập Username" name="username" value="{{old('username')}}">
         </div>
         <div class="col-12">
-          @error('name')
+          @error('username')
             <div style="color:red;">{{ $message }}</div>
           @enderror
         </div>

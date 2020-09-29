@@ -61,11 +61,12 @@ class PostService {
 	 */
 	public function getSearchPost($keyword, $selectpost)
 	{
-		if($selectpost == 'all') {
-    		$listPost = Post::keyword($keyword)->paginate(config('constant.paginate'));
-    	} else {
-    		$listPost = Post::keyword($keyword)->selectpost($selectpost)->paginate(config('constant.paginate'));
-    	}
+		$listPost = Post::with('user')->keyword($keyword);
+		if(!is_null($selectpost)) {
+			$listPost = $listPost->selectpost($selectpost);
+		} 
+		return $listPost = $listPost->paginate(config('constant.paginate'));
+
 	} 
 
 }

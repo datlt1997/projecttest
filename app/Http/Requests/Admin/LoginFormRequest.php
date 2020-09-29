@@ -24,7 +24,7 @@ class LoginFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10',
+            'username' => 'required|min:6',
             'password' => 'required|min:6',
         ];
     }
@@ -36,8 +36,8 @@ class LoginFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập username',
-            'name.min' => 'Vui lòng nhập usename từ 10 ký tự',
+            'username.required' => 'Vui lòng nhập username',
+            'username.min' => 'Vui lòng nhập usename từ 6 ký tự',
             'password.required' => 'Vui lòng nhập password',
             'password.min' => 'Vui lòng nhập password từ 6 ký tự',
         ];

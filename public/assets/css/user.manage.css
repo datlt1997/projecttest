@@ -62,3 +62,8 @@ button a {
     font-family: sans-serif;
     font-weight: lighter;
 }
+
+li.breadcrumb-item.fix-breadcrumb a {
+    color: #696868c7;
+    font-weight: 600;
+}

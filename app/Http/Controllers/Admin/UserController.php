@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,12 +46,17 @@ class UserController extends Controller
      */
     public function saveUser(AddUserRequest $request)
     {
-        $data = $request->only('email', 'name', 'password', 'address', 'role');
+        $data = $request->only('email', 'name', 'username', 'password', 'address', 'role');
         $data['password'] = Hash::make($data['password']);
         $data['status'] = config('constant.active');
-        $data['avatar'] = 'abc';
         if(( empty($data['role'] )) || ($data['role'] != config('constant.admin'))) {
             $data['role'] = config('constant.user');
+        }
+        if($request->hasFile('avatar')) {
+            $avt = $request->avatar;
+            $avatar = time() . $avt->getClientOriginalName();
+            $avt -> move('images/Admin/avatar/', $avatar);
+            $data['avatar'] = $avatar;
         }
         $this->userService->createUser($data);      
         return redirect()->route('show-user');
@@ -71,10 +77,20 @@ class UserController extends Controller
      * @param UpdateUserRequest $request
      * @param int $id
      */
-    public function updateUser(UpdateUserRequest $request, $id)
+    public function updateUser(Request $request, $id)
     {
-        $data = $request->only('email', 'name', 'password', 'address', 'role', 'status');
-        $data['avatar'] = 'abc';
+        $data = $request->only('email', 'name','username', 'password', 'address', 'role', 'status');
+        if(is_null($request->status)) {
+            $this->userService->checkStatus($id);
+        }
+        if($request->hasFile('avatar')) {
+            $this->userService->getDeleteImage($id);
+            $avt = $request->avatar;
+            $avatar = time() . $avt->getClientOriginalName();
+            $avt -> move('images/Admin/avatar/', $avatar);
+            $data['avatar'] = $avatar;
+
+        }
         $this->userService->updateUser($id, $data);
         return redirect()->route('show-user');
     }
@@ -100,7 +116,17 @@ class UserController extends Controller
         $selectUser = $request->selectUser;
         $listUser = $this->userService->searchUser($keyword, $selectUser)->setpath('search?keyword=' . $keyword . '&selectUser=' . $selectUser);
 
-        // dd($listUser);
         return view('admin.user.list_user', compact('listUser', 'keyword', 'selectUser'));
+    }
+
+    /**
+     * change status user
+     * @param  int $id 
+     * @return 
+     */
+    public function changeStatus($id)
+    {
+        $this->userService->getChangeStatus($id);
+        return redirect()->route('show-user');
     }
 }

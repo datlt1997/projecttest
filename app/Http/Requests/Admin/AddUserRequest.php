@@ -24,11 +24,13 @@ class AddUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:30',
+            'name' => 'required|max:30|min:6',
+            'username' => 'required|max:30|min:6',
             'email' => 'required|email|min:10|unique:users',
             'password' => 'required|min:6',
             'address' => 'required|min:10',
             'role' => 'required|max:1',
+            'avatar.*' => 'nullable|mimes:jpg, png',
         ];
     }
 
@@ -41,6 +43,10 @@ class AddUserRequest extends FormRequest
         return [
             'name.required' =>'Vui lòng nhập tên người dùng',
             'name.max' =>'Không nhập quá 30 ký tự',
+            'name.min' =>'Không nhập quá 6 ký tự',
+            'username.required' =>'Vui lòng nhập tên username',
+            'username.max' =>'Không nhập username quá 30 ký tự',
+            'username.min' =>'Không nhập username quá 6 ký tự',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không hợp lệ',
             'email.unique' => 'Email đã tồn tại',
@@ -51,6 +57,7 @@ class AddUserRequest extends FormRequest
             'address.min' => 'Địa chỉ phải ít nhất 10 ký tự',
             'role.required' => 'Vui lòng điền quyền hạn',
             'role.max' => 'Vui lòng không điền lại quyền',
+            'avatar.mimes' => 'Vui lòng nhập file ảnh',
         ];
     }
 }

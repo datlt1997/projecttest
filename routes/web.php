@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'Admin'], function() {
 			Route::put('{id}/update', 'UserController@updateUser')->name('update-user');
 			Route::delete('{id}/delete', 'UserController@deleteUser')->name('delete-user');
 			Route::get('search','UserController@searchUser')->name('search-user');
+			Route::put('{id}/change-status', 'UserController@changeStatus')->name('change-status-user');
 		});
 
 		Route::group(['prefix' => 'post/'], function() {

@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
     protected $table = 'users';
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'address', 'status', 'avatar'
+        'name', 'username', 'email', 'password', 'role', 'address', 'status', 'avatar'
     ];
 
     /**
@@ -57,7 +57,7 @@ class User extends Authenticatable
      * @param  string $select
      * @return array
      */
-    public function scopeSelect($query, $select)
+    public function scopeSelectbox($query, $select)
     {
         return $query->where('status', '=', $select);
     }

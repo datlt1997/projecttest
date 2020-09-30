@@ -21,6 +21,6 @@ class CheckLoginMiddleware
         } else {
             return $next($request);
         } 
-    } 
-}
 
+    }
+}

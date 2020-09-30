@@ -17,15 +17,11 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->status == config('constant.active')) {
-                if ( (Auth::user()->role == config('constant.superadmin')) || (Auth::user()->role == config('constant.admin')) ) {
-                    return $next($request);
-                } else {
-                    return redirect()->route('form-login-admin');
-                } 
+            if ( isset(Auth::user()->role)) {
+                return $next($request);
             } else {
                 return redirect()->route('form-login-admin');
-            }
+            }        
         } else {
             return redirect()->route('form-login-admin');
         }

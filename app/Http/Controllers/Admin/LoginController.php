@@ -20,16 +20,18 @@ class LoginController extends Controller
      */
     public function loginAdmin(LoginFormRequest $request)
     {
+
         $data = $request->only('username', 'password');
+
         if (Auth::attempt($data)) {
             if (Auth::user()->status == config('constant.active')) {
                 if ( (Auth::user()->role == config('constant.superadmin')) || (Auth::user()->role == config('constant.admin'))) {
                     return redirect()->route('show-user');
                 } else {
-                    return redirect()->back()->with('mess', 'Bạn Không có quyền vào trang này');
+                    return redirect()->route('show-post');
                 } 
             } else {
-                return redirect()->back()->with('mess', 'Tài khoản của bạn đã vô hiệu hóa');
+                return redirect()->route('admin-logout')->with('mess', 'Tài khoản của bạn đã bị khóa');
             }            
         } else {
         	return redirect()->back()->with('mess', 'User hoặc mật khẩu của bạn sai');
@@ -44,6 +46,9 @@ class LoginController extends Controller
     	if(Auth::check())
 		{
 			Auth::logout();
+            if(session('mess')) {
+                return redirect()->route('form-login-admin')->with('mess', 'Tài khoản của bạn đã bị khóa');
+            }
 			return redirect()->route('form-login-admin');
 		}
     }

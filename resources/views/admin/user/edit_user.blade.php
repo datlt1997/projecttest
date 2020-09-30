@@ -108,26 +108,6 @@
                   </div>
 
                   <div class="form-group">
-                    {{-- <label for="exampleInputPassword1">Trạng Thái</label>
-                    <div class="form-check">
-                      <input type="radio" id="Active" name="status" value="{{config('constant.active')}}"  
-                      @if($editUser->status == config('constant.active'))
-                      checked 
-                      @endif
-                      >
-                      <label for="Active">Active</label><br>
-                    </div>
-                    <div class="form-check">
-                      <input type="radio" id="Inactive" name="status" value="{{config('constant.inactive')}}"
-                      @if($editUser->status == config('constant.inactive'))
-                      checked 
-                      @endif
-                      >
-                      <label for="Inactive">InActive</label><br>
-                    </div>
-                    @error('status')
-                    <div style="color:red;">{{ $message }}</div>
-                    @enderror --}}
                     <label for="exampleInputPassword1">Trạng Thái</label>
                     <div class="card-body">
                       <input type="checkbox" name="status" data-bootstrap-switch  value = "{{config('constant.active')}}"
@@ -139,8 +119,6 @@
                     <div style="color:red;">{{ $message }}</div>
                     @enderror
                   </div>
-
-                    
                   
                   <div class="form-group">
                     <label for="exampleInputFile">Upload Avatar</label>

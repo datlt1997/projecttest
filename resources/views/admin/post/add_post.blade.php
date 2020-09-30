@@ -43,11 +43,7 @@
 										<div style="color:red;">{{ $message }}</div>
 										@enderror
 									</div>  
-									@if(Auth::user()->role == config('constant.superadmin') )
-									<input type="hidden" name="status" value="{{config('constant.active')}}">   
-									@else
 									<input type="hidden" name="status" value="{{config('constant.inactive')}}">   
-									@endif
 									<section class="content">
 										<div class="row">
 											<div class="col-md-12">

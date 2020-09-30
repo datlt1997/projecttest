@@ -8,6 +8,8 @@ return [
 	'selectall' => 'all',
 	'paginate' => '5',
 	'lock' => 'Khóa',
-	'unlock' => 'Hoạt Động',
+	'unlock' => 'Hoạt động',
+	'publish' =>'Xuất bản',
+	'wait' => 'Đang duyệt'
 ]
 ?>

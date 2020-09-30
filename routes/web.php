@@ -44,8 +44,13 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'Admin'], function() {
 			Route::put('{id}/update', 'PostController@update')->name('update-post');
 			Route::delete('{id}/delete', 'PostController@delete')->name('delete-post');
 			Route::get('search','PostController@search')->name('search-post');
+			Route::put('{id}/change-status', 'PostController@changeStatus')->name('change-status-post');
 		});
 	});
 
+});
+Route::group(['namespace' =>'User'], function() {
+	Route::get('/', 'HomeController@index')->name('home');
+	Route::post('register', 'HomeController@registerForm')->name('register');
 });
 

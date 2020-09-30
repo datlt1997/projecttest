@@ -46,6 +46,7 @@ class PostController extends Controller
     {
     	$data = $request->only('title', 'content', 'status');
     	$data['user_id'] =Auth::user()->id;
+        $data['author'] =Auth::user()->name;
     	$listPost =$this->postservice->getSavePost($data);
     	return redirect()->route('show-post');
     }
@@ -70,10 +71,11 @@ class PostController extends Controller
     public function update(Request $request, $id )
     {
     	$data =$request->only('title', 'content', 'status');
-    	if(empty($data['status'])){
+    	if(is_null($request->status)){
     		$data['status'] =config('constant.inactive');
     	}
     	$data['user_id'] =Auth::user()->id;
+        $data['author'] =Auth::user()->name;
     	$this->postservice->getUpdatePost($id, $data);
     	return redirect()->route('show-post');
     }
@@ -99,7 +101,13 @@ class PostController extends Controller
     	$keyword = $request->keyword;
     	$selectpost = $request->selectpost;
     	$listPost = $this->postservice->getSearchPost($keyword, $selectpost);
-        // dd($listPost);
+        // dd($listPost['4']->user->name);
     	return view('admin.post.list_post', compact('listPost', 'selectpost', 'keyword'));
+    }
+
+    public function changeStatus($id)
+    {
+        $this->postservice->getChangeStatus($id);
+        return redirect()->route('show-post');
     }
 }

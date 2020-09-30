@@ -3,16 +3,16 @@
 
 @section('breadcrub')
 <div class="row mb-2">
-  <div class="col-sm-6">
-    <h1 class="m-0 text-dark">Tất Cả Bài Viết</h1>
-  </div><!-- /.col -->
-  <div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
-      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-post')}}">Post</a></li>
-      <li class="breadcrumb-item fix-breadcrumb active">List Post</li>
-    </ol>
-  </div><!-- /.col -->
+	<div class="col-sm-6">
+		<h1 class="m-0 text-dark">Tất Cả Bài Viết</h1>
+	</div><!-- /.col -->
+	<div class="col-sm-6">
+		<ol class="breadcrumb float-sm-right">
+			<li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
+			<li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-post')}}">Post</a></li>
+			<li class="breadcrumb-item fix-breadcrumb active">List Post</li>
+		</ol>
+	</div><!-- /.col -->
 </div>
 @endsection
 
@@ -79,15 +79,28 @@
 						<tr style="height: 60px">
 							<td> {{ $post->id }} </td>
 							<td> {{ $post->title }} </td>
+							
 							<td> {!! $post->content !!} </td>
-							<td>{{ $post->user->name}}</td>
+							<td> {{ $post->author }} </td>
+
 							<td>
 								@if( $post->status == config('constant.active'))
-								<span class="badge bg-primary">Xuất Bản</span>
+								<span class="badge bg-primary">Xuất bản</span>
+								@if((Auth::user()->role == config('constant.superadmin'))||(Auth::user()->role == config('constant.admin')))
+								<button type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="{{config('constant.wait')}}" data-id-status="{{ $post->id }}">Đang duyệt</button>
+								@endif
 								@else
-								<span class="badge bg-danger">Đang Duyệt</span>
+								<span class="badge bg-danger">Đang duyệt</span>
+								@if((Auth::user()->role == config('constant.superadmin'))||(Auth::user()->role == config('constant.admin')))
+								<button type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="{{config('constant.publish')}}" data-id-status="{{ $post->id }}">Xuất bản</button>
+								@endif
 								@endif 
 							</td>
+
+
+
+
+
 							<td>{{ $post->updated_at }}</td>
 							<td><a href="{{route('edit-post',$post->id)}}"><button class="btn btn-warning">Sửa</button></a>
 								@if( Auth::user()->role == config('constant.superadmin'))
@@ -130,5 +143,29 @@
 		</div>
 
 	</div>
+</div>
+<div class="modal fade" id="change-status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thay Đổi Trạng Thái Bài Viết</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="status-name"></p>
+      </div>
+      <div class="modal-footer">
+        <form action = '' method="post" id="change-status-form">
+          @csrf
+          @method('put')
+          <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

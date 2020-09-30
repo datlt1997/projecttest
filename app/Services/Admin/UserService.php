@@ -104,18 +104,4 @@ class UserService
         }
         User::find($id)->update($data);
     }
-
-    /**
-     * check status
-     * @param  int $id
-     * @return
-     */
-    public function checkStatus($id)
-    {
-        if(User::find($id)->status == config('constant.active')) {
-            return $data['status'] = config('constant.inactive');
-        } else {
-            return $data['status'] = config('constant.active');
-        }
-    }
 }

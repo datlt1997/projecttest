@@ -109,13 +109,9 @@
                 @if( $user->status == config('constant.active'))
                 <span class="badge bg-primary">Hoạt Động</span>
 
-                {{-- <span type="button" class="btn btn-block btn-outline-warning btn-xs change-item" data-toggle="modal" data-target="#change-status" data-name-status="Hoạt Động" data-id-status="{{ $user->id }}">Khóa</span> --}}
-
                 <button type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="{{config('constant.lock')}}" data-id-status="{{ $user->id }}">Khóa</button>
                 @else
                 <span class="badge bg-danger">Khóa</span>
-
- {{--                <span type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="Khóa" data-id-status="{{ $user->id }}">Hoạt Động</span> --}}
 
                 <button type="button" class="btn btn-block btn-outline-warning btn-xs change-status" data-toggle="modal" data-target="#change-status" data-name-status="{{config('constant.unlock')}}" data-id-status="{{ $user->id }}">Hoạt Động</button>
                 @endif 

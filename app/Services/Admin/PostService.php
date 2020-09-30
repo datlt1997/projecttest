@@ -12,7 +12,7 @@ class PostService {
 	 */
 	public function getAllPost()
 	{
-		return Post::with('user')->paginate(config('constant.paginate'));
+		return Post::paginate(config('constant.paginate'));
 	}
 
 	/**
@@ -61,13 +61,23 @@ class PostService {
 	 */
 	public function getSearchPost($keyword, $selectpost)
 	{
-		$listPost = Post::with('user')->keyword($keyword);
+		$post = Post::keywordpost($keyword);
 		if(!is_null($selectpost)) {
-			$listPost = $listPost->selectpost($selectpost);
+			$post = $post->selectpost($selectpost);
 		} 
-		return $listPost = $listPost->paginate(config('constant.paginate'));
+		$post = $post->paginate(config('constant.paginate'));
+		return $post;
+	}
 
-	} 
+	public function getChangeStatus($id)
+	{
+		if(Post::find($id)->status == config('constant.active')) {
+			$data['status'] = config('constant.inactive');
+		} else {
+			$data['status'] = config('constant.active');
+		}
+		Post::find($id)->update($data);
+	}
 
 }
 ?>

@@ -10,10 +10,11 @@ use Faker\Generator as Faker;
  * factory of post
  */
 $factory->define(Post::class, function (Faker $faker) {
-	// $user_id = User::pluck('id');
+	$user_id = User::pluck('id');
     return [
     	'title' => $faker->text,
-    	'user_id' => $faker->randomElement(['1', '2', '3']),
+    	'user_id' => '1',
+    	'author' => 'superadmin',
     	'content' => $faker->paragraph,
     	'status' => $faker->randomElement(['0','1']),
     ];

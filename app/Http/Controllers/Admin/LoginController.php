@@ -29,7 +29,7 @@ class LoginController extends Controller
                 return redirect()->route('show-post');
             } 
         } else {
-        	return redirect()->back()->with('mess', 'User hoặc mật khẩu của bạn bị sai hoặc đã bị khóa');
+        	return redirect()->back()->with('mess', 'Username hoặc mật khẩu của bạn bị sai');
         }
     }
 

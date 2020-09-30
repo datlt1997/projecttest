@@ -9,7 +9,7 @@ class Post extends Model
     protected $table= 'posts';
 
     protected $fillable = [
-    	'user_id', 'title', 'content', 'status'
+    	'user_id', 'author', 'title', 'content', 'status'
     ];
 
     /**
@@ -25,9 +25,10 @@ class Post extends Model
      * @param  string $key   
      * @return array    select post with keyword  
      */
-    public function scopeKeyword($query, $key)
+    public function scopeKeywordpost($query, $key)
     {
-    	return $query->where('title', 'like', '%' . $key . '%');
+    	return $query->where('title', 'like', '%' . $key . '%')
+                    ->orWhere('author', 'like', '%' . $key . '%');
     }
 
     /**

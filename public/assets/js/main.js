@@ -12,7 +12,7 @@ $(document).ready(function($){
 		console.log('đã chạy');
 		var id = $(this).data('id-status');
 		var name = $(this).data('name-status');
-		document.getElementById("status-name").innerHTML = "Đổi trạng thái người dùng này thành: " + name;
+		document.getElementById("status-name").innerHTML = "Đổi trạng thái thành: " + name;
 		document.getElementById("change-status-form").action = id + "/change-status";
 	})
 });

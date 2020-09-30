@@ -3,16 +3,16 @@
 
 @section('breadcrub')
 <div class="row mb-2">
-  <div class="col-sm-6">
-    <h1 class="m-0 text-dark">Sửa Bài Viết</h1>
-  </div><!-- /.col -->
-  <div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
-      <li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-post')}}">Post</a></li>
-      <li class="breadcrumb-item fix-breadcrumb active">Edit Post</li>
-    </ol>
-  </div><!-- /.col -->
+	<div class="col-sm-6">
+		<h1 class="m-0 text-dark">Sửa Bài Viết</h1>
+	</div><!-- /.col -->
+	<div class="col-sm-6">
+		<ol class="breadcrumb float-sm-right">
+			<li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-user')}}"><i class="fas fa-home"></i></a></li>
+			<li class="breadcrumb-item fix-breadcrumb"><a href="{{route('show-post')}}">Post</a></li>
+			<li class="breadcrumb-item fix-breadcrumb active">Edit Post</li>
+		</ol>
+	</div><!-- /.col -->
 </div>
 @endsection
 @section('main-content')
@@ -80,26 +80,16 @@
 										@if(Auth::user()->role == config('constant.superadmin') )
 										<div class="form-group">
 											<label for="exampleInputPassword1">Trạng Thái</label>
-											<div class="form-check">
-												<input type="radio" id="Active" name="status" value="{{config('constant.active')}}"  
-												@if($editPost->status == config('constant.active'))
-												checked 
-												@endif
-												>
-												<label for="Active">Xuất Bản</label><br>
-											</div>
-											<div class="form-check">
-												<input type="radio" id="Inactive" name="status" value="{{config('constant.inactive')}}"
-												@if($editPost->status == config('constant.inactive'))
-												checked 
-												@endif
-												>
-												<label for="Inactive">Đang Duyệt</label><br>
+											<div class="card-body">
+												<input type="checkbox" name="status" data-bootstrap-switch  value = "{{config('constant.active')}}"
+												@if($editPost->status == config('constant.active')) 
+												checked
+												@endif>
 											</div>
 											@error('status')
 											<div style="color:red;">{{ $message }}</div>
 											@enderror
-										</div>   
+										</div>
 										@endif      
 										<div class="row">
 											<!-- /.col -->

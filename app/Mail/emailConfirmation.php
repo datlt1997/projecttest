@@ -11,15 +11,15 @@ class emailConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $emailconfirm
+    public $sendmail;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(emailConfirmation $emailconfirm)
+    public function __construct($sendmail)
     {
-        $this->emailconfirm = $emailconfirm;
+        $this->sendmail = $sendmail;
     }
 
     /**
@@ -29,6 +29,6 @@ class emailConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.sendmail');
+        return $this->view('mail.sendmail')->subject('The House Company')->with(['sendmail' => $this->sendmail]);
     }
 }

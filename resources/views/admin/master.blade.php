@@ -116,6 +116,16 @@
               </li>
             </ul>
           </li>
+          @if((Auth::user()->role == config('constant.superadmin')) || ((Auth::user()->role == config('constant.admin'))))
+          <li class="nav-item">
+            <a href="{{route('show-candidate')}}" class="nav-link">
+              <i class="nav-icon fas fa-user-clock"></i>
+              <p>
+                Ứng Viên
+              </p>
+            </a>
+          </li>
+          @endif
           <li class="nav-item">
             <a href="{{route('admin-logout')}}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>

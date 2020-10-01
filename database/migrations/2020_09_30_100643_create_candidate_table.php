@@ -32,6 +32,7 @@ class CreateCandidateTable extends Migration
             $table->string('income');
             $table->string('email');
             $table->string('filepdf');   
+            $table->char('status');
             $table->timestamps();   
         });
     }

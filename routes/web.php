@@ -46,6 +46,13 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'Admin'], function() {
 			Route::get('search','PostController@search')->name('search-post');
 			Route::put('{id}/change-status', 'PostController@changeStatus')->name('change-status-post');
 		});
+
+		Route::group(['prefix' => 'candidate'], function() {
+			Route::get('list', 'CandidateController@index')->name('show-candidate');
+			Route::get('{id}/Edit', 'CandidateController@editCandidate')->name('edit-candidate');
+			Route::put('{id}/Update', 'CandidateController@updateCandidate')->name('update-candidate');
+			Route::delete('{id}/delete', 'CandidateController@deleteCandidate')->name('delete-candidate');
+		});
 	});
 
 });

@@ -11,6 +11,6 @@ class Candidate extends Model
     	'fullname', 'date', 'month', 'year', 'phone', 'recruitment',
     	'language', 'technical', 'specialskill', 'achievement',
     	'sixmonth', 'oneyear', 'threeyear', 'project', 'income',
-    	'email', 'filepdf'
+    	'email', 'filepdf', 'status'
     ];
 }

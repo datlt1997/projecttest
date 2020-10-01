@@ -25,10 +25,10 @@ class RegisterFormRequest extends FormRequest
     {
         return [
             'fullname' => 'required|min:3|max:60',
-            'date' => 'required|max:2|numeric',
-            'month' => 'required|max:2|numeric',
-            'year' => 'required|min:2|max:4|numeric',
-            'phone' => 'required|min:10|max:11|numeric',
+            'date' => 'required|numeric',
+            'month' => 'required|numeric',
+            'year' => 'required||numeric',
+            'phone' => 'required|numeric',
             'recruitment' =>'required',
             'language' =>'required',
             'technical' =>'required',
@@ -39,7 +39,7 @@ class RegisterFormRequest extends FormRequest
             'threeyear' => 'required',
             'project' => 'required',
             'income' => 'required',
-            'email' => 'required|email|unique:candidate:email',
+            'email' => 'required|email',
             'filepdf.*' => 'required|mines:pdf'
         ];
     }
@@ -76,7 +76,6 @@ class RegisterFormRequest extends FormRequest
             'income.required' => 'Vui lòng mức lương mong muốn',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Bạn phải điền đúng email',
-            'email.unique' => 'Bạn đã sử dụng email này đăng ký rồi',
             'filepdf' => 'Bạn phải gửi kèm CV cho chúng tôi',
         ];
     }

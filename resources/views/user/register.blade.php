@@ -17,6 +17,9 @@
 						<h3 class="card-title">Thông Tin Cá Nhân</h3>
 					</div>
 					<!-- /.card-header -->
+					@if(session('message'))
+              			<div style="color:red; margin-bottom: 15px; text-align: center;">{{ session('message') }}</div>
+            		@endif
 					<!-- form start -->
 					<form role="form" action="{{route('register')}}" method="post" enctype="multipart/form-data">
 						@csrf
@@ -24,6 +27,9 @@
 							<div class="form-group">
 								<label for="inputName">Họ Và Tên</label>
 								<input type="text" class="form-control" name="fullname" value="{{old('fullname')}}" id="inputName" placeholder="Nhập tên đầy đủ của bạn">
+								@error('fullname')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label>Ngày Tháng Năm Sinh</label>
@@ -39,51 +45,96 @@
 										<input type="text" class="form-control" name="year" value="{{old('year')}}" placeholder="Nhập Năm">
 									</div>
 								</div>
+								@error('date')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
+                    			@error('month')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
+                    			@error('year')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputphone">Số điện thoại</label>
 								<input type="text" class="form-control" id="inputphone" name="phone" value="{{old('phone')}}" placeholder="Vui lòng nhập số điện thoại">
+								@error('phone')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputrecruitment">Vị trí ứng tuyển</label>
 								<input type="text" class="form-control" id="inputrecruitment" name="recruitment" value="{{old('recruitment')}}" placeholder="Vui lòng nhập vị trí ứng tuyển">
+								@error('recruitment')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputlanguage">Ngôn ngữ lập trình hay mảng muốn thay đổi</label>
 								<input type="text" class="form-control" id="inputlanguage" name="language" value="{{old('language')}}" placeholder="Vui nhập ngôn ngữ lập trình hay mảng muốn thay đổi">
+								@error('language')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<!-- textarea -->
 							<div class="form-group">
 								<label for="inputtechnical">Kĩ năng chuyên môn</label>
 								<textarea class="form-control" rows="3" id="inputtechnical" name="technical" value="{{old('technical')}}" placeholder="Nhập kỹ năng chuyên môn"></textarea>
+								@error('technical')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputspecialskill">Kĩ năng đăc biệt</label>
 								<textarea class="form-control" rows="3" id="inputspecialskill" name="specialskill" value="{{old('specialskill')}}" placeholder="Nhập kỹ năng đặc biệt"></textarea>
+								@error('specialskill')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputachievement">Thanh tích đạt được</label>
 								<textarea class="form-control" rows="3" id="inputachievement" name="achievement" value="{{old('achievement')}}" placeholder="Thành tích đạt được"></textarea>
+								@error('achievement')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label>Mục tiêu cụ thể</label>
 								<textarea class="form-control mb-1" rows="1" name="sixmonth" value="{{old('sixmonth')}}" placeholder="-6 tháng tới"></textarea>
 								<textarea class="form-control mb-1" rows="1" name="oneyear" value="{{old('oneyear')}}" placeholder="-1 năm tới"></textarea>
 								<textarea class="form-control mb-1" rows="1" name="threeyear" value="{{old('threeyear')}}" placeholder="-3 năm tới"></textarea>
+								@error('sixmonth')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
+                    			@error('oneyear')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
+                    			@error('threeyear')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputproject">Phân tích cơ bản về đồ án, dự án tâm huyết đã làm</label>
 								<textarea class="form-control" id="inputproject" rows="3" name="project" value="{{old('project')}}" placeholder="Phân tích cơ bản về đồ án, dự án tâm huyết đã làm"></textarea>
+								@error('project')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="form-group">
 								<label for="inputincome">Mức thu nhập mong muốn khi vào công ty</label>
 								<input type="text" class="form-control" id="inputincome" name="income" value="{{old('income')}}" placeholder="Nhập mức thu nhập mong muốn">
+								@error('income')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 								</div>
 								<input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Email của bạn">
+								@error('email')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 
 							<div class="form-group">
@@ -94,6 +145,9 @@
 										<label class="custom-file-label" for="exampleInputFile">Choose file</label>
 									</div>
 								</div>
+								@error('filepdf')
+                   					<div style="color:red;">{{ $message }}</div>
+                    			@enderror
 							</div>
 						</div>
 						<!-- /.card-body -->
